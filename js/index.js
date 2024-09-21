@@ -25,15 +25,15 @@ document.getElementById('calculate').addEventListener('click', function() {
     const { income, totalCost, balance } = calculateValues(); 
     if (income === '' || isNaN(income) || income <= 0) {
         document.getElementById('income-error').classList.remove('hidden');
+        document.getElementById('results-summary').classList.add('hidden');
         return; 
-    } else {
-        document.getElementById('income-error').classList.add('hidden');
     }
-
-    if (totalCost > income) {
+    else if(totalCost > income){
         document.getElementById('logic-error').classList.remove('hidden');
         document.getElementById('results-summary').classList.add('hidden');
-    } else {
+    }
+     else {
+        document.getElementById('income-error').classList.add('hidden');
         document.getElementById('logic-error').classList.add('hidden');
         document.getElementById('results-summary').classList.remove('hidden');
     }
@@ -41,7 +41,6 @@ document.getElementById('calculate').addEventListener('click', function() {
     // Display total cost and balance
     document.getElementById('totalCost').innerText = totalCost;
     document.getElementById('balance').innerText = balance;
-
 
     // Add the result to history list
     const div = document.createElement('div');
@@ -72,53 +71,8 @@ document.getElementById('calculate-savings').addEventListener('click', function(
 
 // error messages start
 
-document.getElementById('income').addEventListener('input', function(){
-    const income = parseFloat(document.getElementById('income').value);
-    if(income <= 0 ){
-        document.getElementById('income-error').classList.remove('hidden');
-    }
-    else{
-        document.getElementById('income-error').classList.add('hidden');
-    }
-})
 
-
-document.getElementById('income').addEventListener('input', function(){
-    const income = parseFloat(document.getElementById('income').value);
-    if(isNaN(income) || income <= 0 ){
-        document.getElementById('income-error').classList.remove('hidden');
-        document.getElementById('results-summary').classList.add('hidden')
-        return;
-    }
-})
-
-document.getElementById('software').addEventListener('input', function(){
-    const software = parseFloat(document.getElementById('software').value);
-    if(software <= 0 ){
-        document.getElementById('amount-error').classList.remove('hidden');
-    }
-    else{
-        document.getElementById('amount-error').classList.add('hidden');
-    }
-})
-document.getElementById('courses').addEventListener('input', function(){
-    const courses = parseFloat(document.getElementById('courses').value);
-    if(courses <= 0 ){
-        document.getElementById('number-error').classList.remove('hidden');
-    }
-    else{
-        document.getElementById('number-error').classList.add('hidden');
-    }
-})
-
-document.getElementById('internet').addEventListener('input', function(){
-    const internet = parseFloat(document.getElementById('internet').value);
-    if(internet <= 0 ){
-        document.getElementById('internet-error').classList.remove('hidden');
-    }
-    else{
-        document.getElementById('internet-error').classList.add('hidden');
-    }
-})
-
-// error messages end
+['income', 'software', 'courses', 'internet'].forEach ( id => { document.getElementById(id).addEventListener('input', function(){
+    validateFields();
+    })
+});
